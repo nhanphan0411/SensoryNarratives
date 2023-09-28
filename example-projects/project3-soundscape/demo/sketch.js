@@ -11,7 +11,7 @@ let amp;
 let duration_;
 
 function preload() {
-    track = loadSound("youarenotgonnajump2.mp3");
+    track = loadSound("youarenotgonnajump3.mp3");
     img_1 = loadImage("1_beach.jpeg")
 }
 
