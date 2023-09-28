@@ -1,5 +1,5 @@
 let particles = [];
-const num = 1000;
+const num = 4000;
 const noiseScale = 0.01 / 2;
 let spd = 1;
 let mic;
@@ -67,6 +67,7 @@ function draw() {
         let p = particles[i];
         stroke(255);
         // circle(p.x, p.y, 1);
+        strokeWeight(2);
         point(p.x, p.y);
         let n = noise(p.x * noiseScale, p.y * noiseScale, zScale);
         let a = TWO_PI * n;
