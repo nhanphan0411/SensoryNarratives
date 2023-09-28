@@ -54,14 +54,14 @@ function draw() {
     spd = amp_*600;
     zScale = amp_*100;
 
-    push();
-    translate(width/2, height/2);
-    textSize(32);
-    textAlign(CENTER);
-    fill(255);
-    noStroke();
-    text("tôi", 0, 0);
-    pop();
+    // push();
+    // translate(width/2, height/2);
+    // textSize(32);
+    // textAlign(CENTER);
+    // fill(255);
+    // noStroke();
+    // text("tôi", 0, 0);
+    // pop();
 
     for (let i = 0; i < num; i++) {
         let p = particles[i];
