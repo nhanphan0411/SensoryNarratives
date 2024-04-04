@@ -12,7 +12,7 @@ let duration_;
 
 function preload() {
     track = loadSound("youarenotgonnajump3.mp3");
-    img_1 = loadImage("1_beach.jpeg")
+    img_1 = loadImage("beach_1.jpeg")
 }
 
 function setup() {
@@ -35,37 +35,31 @@ function setup() {
 }
 
 function draw() {
-    background(0, 50);
+    background(0, 25);
+    // clear();
     durationBar();
     cursorHover();
     
-    // push();
-    // imageMode(CENTER);
-    // translate(width/2, height/2);
-    // image(img_1, 0, 0, 300, 200);
-    // img_1.loadPixels();
-    // pop();
-    
-
-    if (frameCount%300==0) {
-        noiseSeed(millis());
-    }
     amp_ = amp.getLevel();
     spd = amp_*600;
     zScale = amp_*100;
 
-    // push();
+    push();
+    // imageMode(CENTER);
     // translate(width/2, height/2);
-    // textSize(32);
-    // textAlign(CENTER);
-    // fill(255);
-    // noStroke();
-    // text("tôi", 0, 0);
-    // pop();
+    let opacity = map(amp_, 0, 1, 0, 255);
+    tint(255, opacity);
+    image(img_1, 0, 0, width);
+    pop();
+    
+    if (frameCount%300==0) {
+        noiseSeed(millis());
+    }
+
 
     for (let i = 0; i < num; i++) {
         let p = particles[i];
-        stroke(255);
+        stroke(255, 255-opacity);
         // circle(p.x, p.y, 1);
         strokeWeight(2);
         point(p.x, p.y);
@@ -82,7 +76,7 @@ function draw() {
 
 function mouseReleased() {
     // noiseSeed(millis());
-    if (mouseY>height-10) {
+    if (mouseY>height-30) {
         jumpToPart = map(mouseX, 0, width, 0, duration_)
         if (track.isPlaying()){
             track.jump(jumpToPart);
@@ -110,14 +104,10 @@ function togglePlay() {
 function durationBar() {
     noStroke();
     fill(100);
-    rect(0, height-10, width, height);
+    rect(0, height-30, width, height);
     progress = map(track.currentTime(), 0, duration_, 0, width)
     fill(0);
-    rect(0, height-10, progress, height) 
-}
-
-function jumpTrack(){
-
+    rect(0, height-30, progress, height) 
 }
 
 function cursorHover () {
