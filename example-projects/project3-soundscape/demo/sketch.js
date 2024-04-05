@@ -5,6 +5,7 @@ let spd = 1;
 let mic;
 let track;
 let button;
+let fsBtn;
 let playing = false;
 let amp_;
 let amp;
@@ -33,6 +34,17 @@ function setup() {
     amp = new p5.Amplitude();
     duration_ = track.duration();
     img_1.resize(width, 0);
+
+    if (deviceOrientation == LANDSCAPE) {
+        fsBtn = createButton('fullscreen')
+        fsBtn.mousePressed(fs)
+        fsBtn.position(width-130, 30);
+        fsBtn.style("border-radius: 10px")
+        fsBtn.style("width: 100px")
+        fsBtn.style("height: 50px")
+        fsBtn.style("background-color: transparent")
+        fsBtn.style("color: lightgray")
+    }
 }
 
 function draw() {
@@ -136,4 +148,9 @@ function cursorHover () {
 
 function deviceTurned() {
     redraw();
+}
+
+function fs() {
+    let fs = fullscreen();
+    fullscreen(!fs);
 }
