@@ -54,9 +54,10 @@ function draw() {
 
         push();
         fill(255);
+        rectMode(CENTER);
         textAlign(CENTER);
         textSize(36);
-        text("turn your phone to landscape to view 🔁", width/2, height/2);
+        text("turn your phone to landscape and turn off silent mode to view 🔁", width/2, height/2, 400, 300);
         pop();
     } else {
         background(0, 25);
