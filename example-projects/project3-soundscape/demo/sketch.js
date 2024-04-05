@@ -1,5 +1,5 @@
 let particles = [];
-const num = 4000;
+let num = 4000;
 const noiseScale = 0.01 / 2;
 let spd = 1;
 let mic;
@@ -32,46 +32,62 @@ function setup() {
     button.style("color: lightgray")
     amp = new p5.Amplitude();
     duration_ = track.duration();
+    img_1.resize(width, 0);
 }
 
 function draw() {
-    background(0, 25);
-    // clear();
-    durationBar();
-    cursorHover();
+
+    if (deviceOrientation == PORTRAIT) {
+        background(0);
+
+        push();
+        fill(255);
+        textAlign(CENTER);
+        textSize(36);
+        text("turn your phone to landscape to view 🔁", width/2, height/2);
+        pop();
+    } else {
+        background(0, 25);
+        // clear();
+        durationBar();
+        cursorHover();
+        
+        amp_ = amp.getLevel();
+        spd = amp_*600;
+        zScale = amp_*100;
     
-    amp_ = amp.getLevel();
-    spd = amp_*600;
-    zScale = amp_*100;
-
-    push();
-    // imageMode(CENTER);
-    // translate(width/2, height/2);
-    let opacity = map(amp_, 0, 1, 0, 255);
-    tint(255, opacity);
-    image(img_1, 0, 0, width);
-    pop();
-    
-    if (frameCount%300==0) {
-        noiseSeed(millis());
-    }
-
-
-    for (let i = 0; i < num; i++) {
-        let p = particles[i];
-        stroke(255, 255-opacity);
-        // circle(p.x, p.y, 1);
-        strokeWeight(2);
-        point(p.x, p.y);
-        let n = noise(p.x * noiseScale, p.y * noiseScale, zScale);
-        let a = TWO_PI * n;
-        p.x = p.x - cos(a) * spd;
-        p.y = p.y - sin(a) * spd;
-        if (!onScreen(p)) {
-            p.x = random(width);
-            p.y = random(height);
+        push();
+        // imageMode(CENTER);
+        // translate(width/2, height/2);
+        let opacity = map(amp_, 0, 1, 0, 255);
+        tint(255, opacity);
+        image(img_1, 0, 0);
+        pop();
+        
+        if (frameCount%300==0) {
+            noiseSeed(millis());
         }
-    }
+    
+        if (width<1000) {
+            num = 2000;
+        }
+
+        for (let i = 0; i < num; i++) {
+            let p = particles[i];
+            stroke(255, 255-opacity);
+            // circle(p.x, p.y, 1);
+            strokeWeight(2);
+            point(p.x, p.y);
+            let n = noise(p.x * noiseScale, p.y * noiseScale, zScale);
+            let a = TWO_PI * n;
+            p.x = p.x - cos(a) * spd;
+            p.y = p.y - sin(a) * spd;
+            if (!onScreen(p)) {
+                p.x = random(width);
+                p.y = random(height);
+            }
+        }
+    } 
 }
 
 function mouseReleased() {
@@ -116,4 +132,8 @@ function cursorHover () {
     } else {
         cursor(ARROW);
     }
+}
+
+function deviceTurned() {
+    redraw();
 }
